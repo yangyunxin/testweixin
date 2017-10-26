@@ -1,15 +1,26 @@
 var express = require('express');
 var router = express.Router();
 const crypto = require('crypto');
+const jssdk = require('../libs/jssdk');
 
 /* GET home page. */
 router.get('/wechat/hello', function(req, res, next) {
-  res.render('index', { title: 'hello wechat' });
+  jssdk.getSignPackage(`http://yehuanhuan.applinzi.com${req.url}`, function (err, signPackage) {
+    if (err) {
+      return next(err);
+    }
+
+    res.render('index', { 
+      title: 'hello wechat',
+      signPackage: signPackage,
+      pretty: true,
+    });
+  })
+
 });
 
 const token = "weixin";
 const handle = function (req, res, next) {
-  console.log(req.query);
 const { signature, timestamp, nonce, echostr } = req.query;
   if (!signature || !timestamp || !nonce) {
     return res.send('invalid request');
