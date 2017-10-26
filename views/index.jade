@@ -3,3 +3,25 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+sript(src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js")
+|     
+script
+	var signPackage = !{JSON.stringify(signPackage)};
+  	wx.config({
+		debug: false,
+		appId: signPackage.appId,
+		timestamp: signPackage.timestamp"],
+		nonceStr: signPackage.nonceStr',
+		signature: signPackage.signature',
+		jsApiList: [//需要使用的JS接口列表,分享默认这几个，如果有其他的功能比如图片上传之类的，需要添加对应api进来
+			'checkJsApi',
+			'onMenuShareTimeline',
+			'onMenuShareAppMessage',
+			'onMenuShareQQ',
+			'onMenuShareWeibo'
+		]
+	});
+
+	wx.ready(function () {
+		console.log('wx.ready')
+	});
