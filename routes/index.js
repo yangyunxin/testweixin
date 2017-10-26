@@ -9,7 +9,7 @@ router.get('/wechat/hello', function(req, res, next) {
     if (err) {
       return next(err);
     }
-
+    console.log(signPackage)
     res.render('index', { 
       title: 'hello wechat',
       signPackage: signPackage,
